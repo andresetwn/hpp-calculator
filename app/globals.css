@@ -12,15 +12,87 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/*
+ * Dark mode manual: class `dark` di <html> (lihat lib/use-theme.ts).
+ * Tetap menghormati preferensi sistem saat pengguna belum memilih tema.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  min-height: 100dvh;
 }
+
+/* Sembunyikan spinner pada input number agar tampilan tetap bersih. */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Style cetak: hanya hasil kalkulator yang dicetak. */
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Sembunyikan seluruh elemen ... */
+  body * {
+    visibility: hidden;
+  }
+
+  /* ... lalu tampilkan hanya area hasil + breakdown. */
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+
+  .print-area {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .print-area * {
+    color: #000000 !important;
+    border-color: #d4d4d8 !important;
+    background: transparent !important;
+  }
+
+  /* Header laporan & tabel tetap terbaca di kertas putih. */
+  .print-area .print-only-block {
+    display: block !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Tailwind v4: varian `print:` butuh definisi eksplisit. */
+@custom-variant print (&:where(@media print));

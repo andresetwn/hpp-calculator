@@ -22,15 +22,9 @@ export function Navbar() {
       >
         <a
           href="#hero"
-          className="flex items-center gap-2 font-semibold text-zinc-900 dark:text-zinc-50"
+          className="flex items-center gap-2 font-semibold text-zinc-900 dark:text-zinc-50 text-lg"
         >
-          <span
-            aria-hidden="true"
-            className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600 text-white dark:bg-emerald-500 dark:text-zinc-950"
-          >
-            <Calculator className="h-5 w-5" aria-hidden="true" />
-          </span>
-          <span>HPP Calculator</span>
+          <span>HPP Calculator by andrestwn</span>
         </a>
 
         <div className="hidden items-center gap-1 sm:flex">
